@@ -1,0 +1,177 @@
+/*Alice lives on a flat planet that can be modeled as a square grid of size n×n, with rows and columns enumerated from 1 to n. We represent the cell at the intersection of row r and column c with ordered pair (r,c). Each cell in the grid is either land or water.
+
+An example planet with n=5. It also appears in the first sample test.
+Alice resides in land cell (r1,c1). She wishes to travel to land cell (r2,c2). At any moment, she may move to one of the cells adjacent to where she is—in one of the four directions (i.e., up, down, left, or right).
+
+Unfortunately, Alice cannot swim, and there is no viable transportation means other than by foot (i.e., she can walk only on land). As a result, Alice's trip may be impossible.
+
+To help Alice, you plan to create at most one tunnel between some two land cells. The tunnel will allow Alice to freely travel between the two endpoints. Indeed, creating a tunnel is a lot of effort: the cost of creating a tunnel between cells (rs,cs) and (rt,ct) is (rs−rt)2+(cs−ct)2.
+
+For now, your task is to find the minimum possible cost of creating at most one tunnel so that Alice could travel from (r1,c1) to (r2,c2). If no tunnel needs to be created, the cost is 0.
+
+Input
+The first line contains one integer n (1≤n≤50) — the width of the square grid.
+
+The second line contains two space-separated integers r1 and c1 (1≤r1,c1≤n) — denoting the cell where Alice resides.
+
+The third line contains two space-separated integers r2 and c2 (1≤r2,c2≤n) — denoting the cell to which Alice wishes to travel.
+
+Each of the following n lines contains a string of n characters. The j-th character of the i-th such line (1≤i,j≤n) is 0 if (i,j) is land or 1 if (i,j) is water.
+
+It is guaranteed that (r1,c1) and (r2,c2) are land.
+
+Output
+Print an integer that is the minimum possible cost of creating at most one tunnel so that Alice could travel from (r1,c1) to (r2,c2).
+
+Examples
+inputCopy
+5
+1 1
+5 5
+00001
+11111
+00111
+00110
+00110
+outputCopy
+10
+inputCopy
+3
+1 3
+3 1
+010
+101
+010
+outputCopy
+8
+Note
+In the first sample, a tunnel between cells (1,4) and (4,5) should be created. The cost of doing so is (1−4)2+(4−5)2=10, which is optimal. This way, Alice could walk from (1,1) to (1,4), use the tunnel from (1,4) to (4,5), and lastly walk from (4,5) to (5,5).
+
+In the second sample, clearly a tunnel between cells (1,3) and (3,1) needs to be created. The cost of doing so is (1−3)2+(3−1)2=8.
+
+*/
+
+/*
+Author: Fuadul Hasan(fuadul202@gmail.com)
+BSMRSTU,Gopalganj
+*/
+#include<bits/stdc++.h>
+using namespace std;
+void    		print(int n)    {printf("%d ", n);}
+void    		printl(long long n)     {printf("%I64d ", n);}
+long long    	readline(){long long x;scanf("%I64d", &x);return x;}
+/*
+1.#define  gcd(a,b) __gcd(a,b) 2. #define  lcm(a,b) (a*b)/gcd(a,b) 3. #define  PI acos(-1.0) 4.#define  sqr(x) ((x)*(x))
+5.#define  min3(a,b,c) min(a,min(b,c))6.#define  min4(a,b,c,d) min(d,min(a,min(b,c)))7.#define  max3(a,b,c) max(a,max(b,c))
+8.#define  max4(a,b,c,d) max(d,max(a,max(b,c)))
+*/
+//.............ignore it................//
+/*....... scanf.......*/
+template <typename T> inline void readline(T &n) {
+  n = 0; int f = 1; register int ch = getchar();
+  for (; !isdigit(ch); ch = getchar()) if (ch == '-') f = -1;
+  for (; isdigit(ch); ch = getchar()) n = (n << 3) + (n << 1) + ch - '0';n = n * f;}
+template <typename T, typename TT> inline void readline(T &n, TT &m) { readline(n); readline(m); }
+template <typename T, typename TT, typename TTT> inline void readline(T &n, TT &m, TTT &l) { readline(n, m); readline(l);}
+/*..........error........*/
+#define error(args...) {vector<string>_v=split(#args,',');err(_v.begin(),args);cout<<endl;}
+vector<string> split(const string &s, char c) {
+  vector<string>v; stringstream ss(s); string x;
+  while (getline(ss, x, c))v.emplace_back(x); return move(v);
+} void err(vector<string>::iterator it) {}
+template<typename T, typename... Args>void err(vector<string>::iterator it, T a, Args...args) {
+cout << it->substr((*it)[0] == ' ', it->length()) << " = " << a << " "; err(++it, args...);}
+//............ignore it..................//
+typedef   pair<int, int> ii;
+typedef   std::vector<ii> vii;
+#define   vi   std::vector<int>
+#define   vll  std::vector<ll>
+#define   all(n) n.begin(),n.end()
+#define  mpsi std::map<string, int>
+#define  pb                     push_back
+#define  ll                     long long int
+#define  nl                     printf("\n");
+#define  happy          cin.tie(0);
+#define  coding         ios::sync_with_stdio(false);
+int dx[8]= {1,0,-1,0,-1,-1,1,1};
+int dy[8]= {0,1,0,-1,-1,1,-1,1};
+const int mod           = 1e9 + 7;
+const int inf           = (int)2e9 + 5;
+const ll  Inf           = (ll)2e18 + 5;
+const int N             = 500 + 5;
+const int N1            = 3e5 + 5;
+int visit[N][N];
+string s[55];
+std::vector<pair<int,int>> v1;
+std::vector<pair<int,int>> v2;
+int n;
+
+void dfs1(int x,int y)
+{
+	visit[x][y] = true;
+	//cout<<x<<y<<endl;
+	v1.push_back(make_pair(x,y));
+	if(x>0&&s[x-1][y]=='0'&&(!visit[x-1][y])){
+		dfs1(x-1,y);
+	}if(x<n-1&&s[x+1][y]=='0'&&(!visit[x+1][y])){
+		dfs1(x+1,y);
+	}if(y>0&&s[x][y-1]=='0'&&(!visit[x][y-1])){
+		dfs1(x,y-1);
+	}if(y<n-1&&s[x][y+1]=='0'&&(!visit[x][y+1])){
+		dfs1(x,y+1);
+	}
+}
+
+void dfs2(int x,int y)
+{
+	visit[x][y] = true;
+	//cout<<x<<y<<endl;
+	v2.push_back(make_pair(x,y));
+	if(x>0&&s[x-1][y]=='0'&&(!visit[x-1][y])){
+		dfs2(x-1,y);
+	}if(x<n-1&&s[x+1][y]=='0'&&(!visit[x+1][y])){
+		dfs2(x+1,y);
+	}if(y>0&&s[x][y-1]=='0'&&(!visit[x][y-1])){
+		dfs2(x,y-1);
+	}if(y<n-1&&s[x][y+1]=='0'&&(!visit[x][y+1])){
+		dfs2(x,y+1);
+	}
+}
+
+int solve()
+{
+	//happy coding
+	readline(n);
+	int x1,y1,x2,y2;
+	readline(x1,y1);
+	readline(x2,y2);
+	for(int i=0;i<n;i++){
+		cin>>s[i];
+	}
+	dfs1(x1-1,y1-1);
+	if(visit[x2-1][y2-1]){
+		cout<<0<<endl;
+		return 0;
+	}else{
+		dfs2(x2-1,y2-1);
+	}
+	int y = mod;
+	for(auto i:v1){
+		for(auto j:v2){
+			int x11 = abs(i.first-j.first);
+			int y11 = abs(i.second-j.second);
+			int x = x11*x11+y11*y11;
+			y = min(y,x*x); 
+		}
+	}
+	cout<<sqrt(y)<<endl;
+	//error()
+	return 0;
+}
+
+int main(){
+	int test = 1, tc = 0;
+	//scanf("%d", &test);//(void)getchar();
+	while (test--)solve();
+	return 0;
+}
