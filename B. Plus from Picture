@@ -1,0 +1,136 @@
+/*
+Author: Fuadul Hasan(fuadul202@gmail.com)
+BSMRSTU,Gopalganj
+*/
+#include<bits/stdc++.h>
+using namespace std;
+
+void    		print(int n)    {printf("%d ", n);}
+void    		printl(long long n)     {printf("%I64d ", n);}
+long long    	readline(){long long x;scanf("%I64d", &x);return x;}
+
+/*
+1.#define  gcd(a,b) __gcd(a,b) 2. #define  lcm(a,b) (a*b)/gcd(a,b) 3. #define  PI acos(-1.0) 4.#define  sqr(x) ((x)*(x))
+5.#define  min3(a,b,c) min(a,min(b,c))6.#define  min4(a,b,c,d) min(d,min(a,min(b,c)))7.#define  max3(a,b,c) max(a,max(b,c))
+8.#define  max4(a,b,c,d) max(d,max(a,max(b,c)))
+*/
+//.............ignore it................//
+/*....... scanf.......*/
+template <typename T> inline void readline(T &n) {
+  n = 0; int f = 1; register int ch = getchar();
+  for (; !isdigit(ch); ch = getchar()) if (ch == '-') f = -1;
+  for (; isdigit(ch); ch = getchar()) n = (n << 3) + (n << 1) + ch - '0';n = n * f;}
+template <typename T, typename TT> inline void readline(T &n, TT &m) { readline(n); readline(m); }
+template <typename T, typename TT, typename TTT> inline void readline(T &n, TT &m, TTT &l) { readline(n, m); readline(l);}
+/*..........error........*/
+#define error(args...) {vector<string>_v=split(#args,',');err(_v.begin(),args);cout<<endl;}
+vector<string> split(const string &s, char c) {
+  vector<string>v; stringstream ss(s); string x;
+  while (getline(ss, x, c))v.emplace_back(x); return move(v);
+} void err(vector<string>::iterator it) {}
+template<typename T, typename... Args>void err(vector<string>::iterator it, T a, Args...args) {
+cout << it->substr((*it)[0] == ' ', it->length()) << " = " << a << " "; err(++it, args...);}
+//............ignore it..................//
+
+typedef   pair<int, int> ii;
+typedef   std::vector<ii> vii;
+#define   vi   std::vector<int>
+#define   vll  std::vector<ll>
+#define   all(n) n.begin(),n.end()
+#define  mpsi std::map<string, int>
+#define  pb                     push_back
+#define  ll                     long long int
+#define  nl                     printf("\n");
+#define  happy          cin.tie(0);
+#define  coding         ios::sync_with_stdio(false);
+
+const int mod           = 1e9 + 7;
+const int inf           = (int)2e9 + 5;
+const ll  Inf           = (ll)2e18 + 5;
+const int N             = 500 + 5;
+const int N1            = 3e5 + 5;
+int visit[N][N];
+
+int solve()
+{
+	//happy coding
+		
+	int n,m,midr=0,midc=0;
+	readline(n,m);
+	string s[505];
+	for(int i=0;i<n;i++){
+		cin>>s[i];
+	}
+	if(n<3||m<3){
+		cout<<"No"<<endl;
+		return 0;
+	}
+	int c = 0;
+	for(int i=1;i<n;i++){
+		for(int j=1;j<m;j++){
+			if(s[i-1][j]=='*'&&s[i+1][j]=='*'&&s[i][j-1]=='*'&&s[i][j+1]=='*'){
+				midc = i;
+				midr= j;
+				c++;
+			}
+		}
+	}
+	if(c== 1){
+		visit[midc][midr] = true;
+		int up = midc,lf= midr;
+
+		for(int i= up;i<n;i++){
+			if(s[i][lf]=='*'){
+				visit[i][lf] = true;
+			}else{
+				break;
+			}
+		}
+
+		for(int i= up;i>=0;i--){
+			if(s[i][lf]=='*'){
+				visit[i][lf] = true;
+			}else{
+				break;
+			}
+		}
+
+		for(int i= lf;i<m;i++){
+			if(s[up][i]=='*'){
+				visit[up][i] = true;
+			}else{
+				break;
+			}
+		}
+
+		for(int i= lf;i>=0;i--){
+			if(s[up][i]=='*'){
+				visit[up][i] = true;
+			}else{
+				break;
+			}
+		}
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(s[i][j]=='*'&&(!visit[i][j])){
+					cout<<"NO"<<endl;
+					//print(i);print(j);
+
+					return 0;
+				}
+			}
+		}
+		cout<<"Yes"<<endl;
+		return 0;
+	}else cout<<"No"<<endl;
+
+	//error()
+	return 0;
+}
+
+int main(){
+	int test = 1, tc = 0;
+	//scanf("%d", &test);//(void)getchar();
+	while (test--)solve();
+	return 0;
+}
