@@ -1,0 +1,96 @@
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+#include<bits/stdc++.h>
+using namespace std;
+//int input........
+template <typename T> inline void readline(T &n) {n = 0; int f = 1; register int ch = getchar();
+ for (; !isdigit(ch); ch = getchar()) if (ch == '-') f = -1;for (; isdigit(ch); 
+ch = getchar()) n = (n << 3) + (n << 1) + ch - '0';n = n * f;}
+template <typename T, typename TT> inline void readline(T &n, TT &m) { readline(n); readline(m); }
+template <typename T, typename TT, typename TTT> inline void readline(T &n, TT &m, TTT &l) { readline(n, m); readline(l);}
+// long long input........
+template <typename T> inline void readlinel(T &n) {n = 0; long long f = 1; register long long ch = getchar();
+ for (; !isdigit(ch); ch = getchar()) if (ch == '-') f = -1;for (; isdigit(ch); 
+ch = getchar()) n = (n << 3) + (n << 1) + ch - '0';n = n * f;}
+template <typename T, typename TT> inline void readlinel(T &n, TT &m) { readlinel(n); readlinel(m); }
+template <typename T, typename TT, typename TTT> inline void readlinel(T &n, TT &m, TTT &l) { readlinel(n, m); readlinel(l);}
+//debug..........
+#define error(args...) {vector<string>_v=split(#args,',');err(_v.begin(),args);cout<<endl;}
+vector<string> split(const string &s, char c) {vector<string>v; stringstream ss(s); string x;
+while (getline(ss, x, c))v.emplace_back(x); return move(v);} void err(vector<string>::iterator it) {}
+template<typename T, typename... Args>void err(vector<string>::iterator it, T a, Args...args) {
+cout << it->substr((*it)[0] == ' ', it->length()) << " = " << a << " "; err(++it, args...);}
+//............ignore it..................//
+int dx[8]= {1,0,-1,0,-1,-1,1,1};int dy[8]= {0,1,0,-1,-1,1,-1,1}; int tc = 1;
+#define pb  push_back
+#define mp make_pair
+#define ll  long long int
+#define end  printf("\n");
+#define happy cin.tie(0);
+#define coding ios::sync_with_stdio(false);
+#define Test printf("Case %d: ",tc++);
+void print(int n){printf("%d ", n);}
+void print(int n,int m){printf("%d ",n);printf("%d ",m);}
+void print(int n,int m,int k){printf("%d ",n);printf("%d ",m);printf("%d ",k);}
+void print(ll n){printf("%I64d ", n);}
+void print(ll n,ll m){printf("%I64d ",n);printf("%I64d ",m);}
+void print(ll n,ll m,ll k){printf("%I64d ",n);printf("%I64d ",m);printf("%I64d ",k);}
+#define   pr 	pair<int, int> 
+#define   vpr 	vector<pr> 
+#define   vi   	std::vector<int>
+#define   vll  	std::vector<ll>
+#define   map   std::map<string, int>
+#define   all(n) n.begin(),n.end()
+const int mod           = 1e9 + 7;
+const int Inf           = (int)2e9 + 5;
+const ll  Lnf           = (ll)2e18 + 5;
+const int N             = 4e5 + 5;
+const int N1            = 1e5 + 5;
+ 
+int solve() 
+{
+	//happy coding
+
+	int n;
+	int ar[13] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	readline(n);
+	int a[30];
+	for(int i=0;i<n;i++){
+		readline(a[i]);
+	}
+	int cnt = 0;
+	int uc = 0;
+	bool b = false;
+	for(int j=0;j<12;j++){
+			if(a[0]==29) uc++;
+			if(a[0] == 29) a[0] = 28;
+			if(a[0]==ar[j]){
+				int s = 0;
+				int e = j;cnt=0;
+				while(a[s]==ar[e]){
+						s++;e++;
+						if(a[s]==29&&s>0) uc++;
+						if(a[s] == 29) a[s] = 28;
+						if(e==12&&s<n)e = 0; 
+						cnt++;
+						if(cnt==n&&uc<=1){
+							b = true;
+							break;
+						}
+				}cnt = 0;
+			}
+		}
+	if(b==true){
+		cout<<"Yes"<<endl;
+	}else{
+		cout<<"No"<<endl;
+	}
+
+	return 0;
+	//error();
+}
+int main(){
+	int test = 1;
+	//readline(test);//(void)getchar();
+	while (test--)solve();return 0;
+}
