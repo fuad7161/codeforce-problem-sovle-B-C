@@ -25,34 +25,28 @@ int solve()
 {
 	//happy coding
 
-	int  n,m,j,cnt;
-	//cin>>n>>m;
-	scanf("%d%d", &n,&m);
-	int  a[n+1];
-	for(ll i=0;i<n;i++){
-		//cin>>a[i];
-		scanf("%d", &a[i]);
+	int n,m;
+	cin>>n>>m;
+	ll cut = 0;
+	ll cnt = 0;
+	int a[n+1];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
 	}
 	sort(a,a+n);
-	ll sum =0;
-	for(int i=0;i<n;i++){
-		 j = i;
-		 cnt=0;
-		 sum =0;
-		while(j<n){
-			sum+=a[j];
-			j++;
+	for(int i=n-1;i>=0;i--){
+		if(a[i]>m){
+			cut  += a[i]-m;
 			cnt++;
-		}
-		if(sum/cnt>=m){
-			cout<<cnt<<endl;
-			return 0;
-		}
+		}else if(m>a[i]){
+			if(cut+a[i]>=m){
+				cut-=(m-a[i]);
+				cnt++;
+			}
+		}else if(m==a[i]) cnt++;
 	}
 
-	
-	cout<<0<<endl;
-	//cout<<cnt<<endl;
+	cout<<cnt<<endl;
 
 	return 0;
 }
