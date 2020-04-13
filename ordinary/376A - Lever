@@ -1,0 +1,76 @@
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+#include<bits/stdc++.h>
+using namespace std;int tc = 1;
+#define happy ios::sync_with_stdio(false);
+#define coding  cin.tie(0);
+#define pb  push_back
+#define mp make_pair
+#define ll long long
+#define pr pair<int, int> 
+#define vpr vector<pr> 
+#define vi std::vector<int>
+#define vll std::vector<ll>
+#define all(n) n.begin(),n.end()
+#define Unique(c) (c).resize(unique(all(c))-(c).begin())
+#define Test printf("Case %d: ",tc++);
+#define YES printf("YES\n");
+#define NO printf("NO\n");
+#define Yes printf("Yes\n");
+#define No printf("No\n");
+const int mod = 1e9 + 7;
+const ll  Inf = (ll)2e18 + 5;
+const int N   = 2e5 + 5;
+
+int solve() 
+{
+	//happy coding
+
+	string s;
+	cin>>s;
+	ll n = s.size();
+	ll f;
+	for(ll i=0;i<n;i++){
+		if(s[i]=='^')f = i;
+	}
+	ll st = f-1,ed = f+1;
+	ll lbar=0,rbar=0;
+	ll lwt = 0,rwt = 0;
+	while(st>=0||ed<=n-1){
+		if(s[st]=='='&&st>=0){
+			st--;
+			lbar++;
+		}else if(s[st]!='='&&st>=0){
+			lbar++;
+			lwt+= (s[st]-'0')*lbar;
+			st--;
+		}
+		if(s[ed]=='='&&ed<=n-1){
+			ed++;
+			rbar++;
+		}else if(s[ed]!='='&&ed<=n-1){
+			rbar++;
+			rwt+= (s[ed]-'0')*rbar;
+			ed++;
+		}
+	}
+
+	//cout<<lwt<<" "<<rwt<<endl;
+
+	if(lwt==rwt){
+		cout<<"balance"<<endl;
+	}else if(lwt<rwt){
+		cout<<"right"<<endl;
+	}else {
+		cout<<"left"<<endl;
+	}
+
+	return 0;
+}
+int main(){
+	int test = 1;
+	//scanf("%d", &test);
+	while (test--)solve();return 0;
+}
