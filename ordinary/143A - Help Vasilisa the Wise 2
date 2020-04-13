@@ -1,0 +1,60 @@
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+#include<bits/stdc++.h>
+using namespace std;int tc = 1;
+#define happy ios::sync_with_stdio(false);
+#define coding  cin.tie(0);
+#define pb  push_back
+#define mp make_pair
+#define ll long long
+#define pr pair<int, int> 
+#define vpr vector<pr> 
+#define vi std::vector<int>
+#define vll std::vector<ll>
+#define all(n) n.begin(),n.end()
+#define Unique(c) (c).resize(unique(all(c))-(c).begin())
+#define Test printf("Case %d: ",tc++);
+#define YES printf("YES\n");
+#define NO printf("NO\n");
+#define Yes printf("Yes\n");
+#define No printf("No\n");
+const int mod = 1e9 + 7;
+const ll  Inf = (ll)2e18 + 5;
+const int N   = 2e5 + 5;
+
+int solve() 
+{
+	//happy coding
+
+	int r1,r2,c1,c2,d1,d2;
+
+	cin>>r1>>r2>>c1>>c2>>d1>>d2;
+
+	for(int i=1;i<=9;i++){
+		for(int j=1;j<=9;j++){
+			for(int k=1;k<=9;k++){
+				for(int l=1;l<=9;l++){
+					//cout<<i<<" "<<j<<" "<<k<<" "<<l<<endl;
+					if(i!=j&&i!=k&&i!=l&&j!=k&&j!=l&&k!=l){
+						if((i+j)==r1&&(k+l)==r2&&(i+k)==c1&&(j+l)==c2&&(i+l)==d1&&(j+k)==d2){
+							cout<<i<<" "<<j<<endl;
+							cout<<k<<" "<<l<<endl;
+						return 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	cout<<-1<<endl;
+	
+	return 0;
+}
+int main(){
+	int test = 1;
+	//scanf("%d", &test);
+	while (test--)solve();return 0;
+}
