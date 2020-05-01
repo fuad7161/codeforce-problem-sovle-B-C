@@ -1,0 +1,95 @@
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+#include<bits/stdc++.h>
+using namespace std;int tc = 1;
+#define happy ios::sync_with_stdio(false);
+#define coding  cin.tie(0);
+#define mp make_pair
+#define ll long long
+#define Pi atan(1)*4
+#define pb  push_back
+#define vpr vector<pr> 
+#define pr pair<int, int> 
+#define vi std::vector<int>
+#define vll std::vector<ll>
+#define YES printf("YES\n");
+#define NO printf("NO\n");
+#define Yes printf("Yes\n");
+#define No printf("No\n");
+#define all(n) n.begin(),n.end()
+#define point(x) setprecision(x)
+#define Test printf("Case %d: ",tc++);
+#define Unique(c) (c).resize(unique(all(c))-(c).begin())
+#define vout(v) for (auto z: v) cout << z << " "; cout << endl;
+
+const int M = 1e9 + 7;
+const ll  Inf = (ll)2e18 + 5;
+const int N   = 2e5 + 5;
+ll binpow(ll a,ll n){
+	ll res = 1;
+	while(n){
+		if(n&1) res = ((res%M)*(a%M))%M;
+		a = ((a%M)*(a%M))%M;
+		n>>=1;
+	}
+	return res%M;
+}
+
+ll fact(ll n){
+	ll res = 1;
+	for(int i=n;i>=1;i--){
+		res *= (i);
+	}
+	return res;
+}
+
+
+int solve() 
+{
+	//happy coding
+
+	string s,k;
+	cin>>s>>k;
+	int p=0,m=0;
+	for(int i=0;s[i];i++){
+		if(s[i]=='+') p++;
+		if(s[i]=='-') m++;
+	}
+	ll tl = p-m;
+
+	ll kp = 0,km = 0,q = 0;
+	for(int i=0;k[i];i++){
+		if(k[i]=='+')  kp++;
+		if(k[i]=='-') km++;
+		if(k[i]=='?') q++;
+	}
+
+	//cout<<tl<<endl;
+
+	if(kp-km+q>=tl&&kp-km-q<=tl){
+
+		ll x = binpow(2,q);
+		ll tq = q;
+		ll y = (p-m) - (kp-km);
+		ll f = y;
+		q -= y;
+		ll ff = (q/2);
+		f += (q/2);
+
+		//cout<<x<<" "<<ff<<" "<<f<<endl;
+
+		int z = fact(tq)/((fact(f)*fact(ff)));
+		cout<<point(15)<<(double)((double)z/(double)x)<<endl;
+
+	}else {
+		cout<<point(10)<<0.00<<endl;
+	}
+
+	
+	return 0;
+}
+int main(){
+	int test = 1;
+	//scanf("%d", &test);
+	while (test--)solve();return 0;
+}
