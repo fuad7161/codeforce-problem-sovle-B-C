@@ -1,0 +1,80 @@
+//Author: Fuadul Hasan(fuadul202@gmail.com)
+//BSMRSTU,Gopalganj
+#include<bits/stdc++.h>
+using namespace std;int tc = 1;
+#define happy ios::sync_with_stdio(false);
+#define coding  cin.tie(0);
+#define mp make_pair
+#define ll long long
+#define Pi atan(1)*4
+#define pb  push_back
+#define vpr vector<pr> 
+#define pr pair<int, int> 
+#define vi std::vector<int>
+#define vll std::vector<ll>
+#define YES printf("YES\n");
+#define NO printf("NO\n");
+#define Yes printf("Yes\n");
+#define No printf("No\n");
+#define all(n) n.begin(),n.end()
+#define point(x) setprecision(x)
+#define Test printf("Case %d: ",tc++);
+#define Unique(c) (c).resize(unique(all(c))-(c).begin())
+#define vout(v) for (auto z: v) cout << z << " "; cout << endl;
+
+const int M = 1e9 + 7;
+const ll  Inf = (ll)2e18 + 5;
+const int N   = 2e5 + 5;
+int visa[N],visb[N];
+int solve() 
+{
+	//happy coding
+
+	int n;
+	cin>>n;
+	int a[n];
+	int b[n];
+	stack<int>s;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+		s.push(a[i]);
+	}
+	for(int i=0;i<n;i++)cin>>b[i];
+
+	/*while(s.size()){
+		cout<<s.top()<<" ";
+		s.pop();
+	}cout<<endl;*/
+
+	for(int i=n-1;i>=0;i--){
+		if(visb[b[i]]==0)
+			visa[b[i]] = 1;
+		if(visb[b[i]]==0){
+			int top = s.top();
+			if(s.size()&&top!=b[i]){
+				while(top!=b[i]){
+					if(visa[top]==0){
+						visb[top] = 1;
+					}
+					s.pop();
+					top = s.top();
+				}
+			}
+		}
+	}
+	int sum = 0;
+	for(int i=1;i<=n;i++){
+		sum += visb[i];
+	}
+	cout<<sum<<endl;
+
+
+
+	
+	return 0;
+}
+int main(){
+	int test = 1;
+	//scanf("%d", &test);
+	while (test--)solve();return 0;
+}
